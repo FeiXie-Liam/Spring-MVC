@@ -1,6 +1,7 @@
 package com.example.employeeapi.controller;
 
 import com.example.employeeapi.datasource.EmployeeRepository;
+import com.example.employeeapi.datasource.TestEmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.http.HttpStatus;
@@ -13,12 +14,12 @@ import org.springframework.web.bind.annotation.*;
 @EnableAutoConfiguration
 public class EmployeeController {
     @Autowired
-    private EmployeeRepository employeeRepository;
+    private EmployeeRepository employeeRepository = new TestEmployeeRepository();
 
     @RequestMapping("/employees")
     String getEmployees(Model model) {
 
-        model.addAttribute("message", "hello world");
+        model.addAttribute("message", employeeRepository.getAllEmployees());
 
         return "employees";
     }
